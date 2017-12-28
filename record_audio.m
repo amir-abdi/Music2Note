@@ -15,9 +15,6 @@ s.IsContinuous = true;
 % setup fft of the live input
 %% empty figure
 hf = figure;
-% ax_text = axes('Position',[0 0 1 1],'Visible','off');
-% axis([0 1 0 1])
-% ax_main = axes('Position',[.3 .1 .6 .8]);
 subplot(1,4,2:4);
 hp = plot(zeros(1000,1));
 T = title('Discrete FFT Plot');
@@ -26,7 +23,6 @@ ylabel('|FFT|')
 grid on;
 subplot(1,4,1);
 plot(zeros(1,1))
-
 
 %% background listener
 % plotFFT = @(src, event) helper_continuous_fft(event.Data, src.Rate, hp);
@@ -38,29 +34,23 @@ hl = addlistener(s, 'DataAvailable', plotFFT);
 startBackground(s);
 figure(hf);
 
-%%
-ButtonH=uicontrol('Parent',hf,'Style','pushbutton','String','Stop','Units','normalized',...
+%% add button
+ButtonHStop=uicontrol('Parent',hf,'Style','pushbutton','String','Stop','Units','normalized',...
     'Position',[0.0 0.0 0.05 0.05],'Visible','on',...
     'Callback', {@stopProcess, hl, s});
+
+ButtonHStart=uicontrol('Parent',hf,'Style','pushbutton','String','Start','Units','normalized',...
+    'Position',[0.055 0.0 0.05 0.05],'Visible','on',...
+    'Callback', {@startProcess, s});
 %%
-% pause(10);
-% %%
-% stop(s);
-% s.IsContinuous = false;
-% delete(hl);
-
-
-%% record approach
-% recObj = audiorecorder(Fs, 16, 1); %sampleRate, bits, channels (mono)
-% disp('Start speaking.')
-% recordblocking(recObj, 5);
-% disp('End of Recording.');
-% % play(recObj);
-% audio = getaudiodata(recObj);
-% % set(recObj,'TimerPeriod',1,'TimerFcn',{@audioTimer});
-
 function stopProcess(source,event, hl, s)
-stop(s);
-s.IsContinuous = false;
-delete(hl);
+    stop(s);
+    s.IsContinuous = false;
+%     delete(hl);
 end
+
+function startProcess(source,event, s)
+    s.IsContinuous = true;    
+    startBackground(s);    
+end
+
