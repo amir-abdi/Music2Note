@@ -7,7 +7,7 @@ device_number = 2; %set the device number to use as recording input
 Fs = 44100; % sampling frequency
 %%
 w = warning ('off','all');
-ref_notes = readtable('notes.csv');
+ref_notes = readtable('../data/notes.csv');
 d = daq.getDevices;
 dev = d(device_number );
 s = daq.createSession('directsound');

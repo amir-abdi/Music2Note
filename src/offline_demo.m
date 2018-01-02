@@ -3,14 +3,14 @@ clear all
 close all
 
 %% set parameteres
-[y,Fs] = audioread('Happy-Birthday-Instrumental.mp3'); % input music file
+[y,Fs] = audioread('../data/Happy-Birthday-Instrumental.mp3'); % input music file
 frame_size_secs = 1.2; % how 
 thres_accep = 1.0; % don't print the note if it is not accurate
 num = 2; % number_of_notes_per_window
 verbose = false;
 
 %% load note frequencies
-ref_notes = readtable('notes.csv');
+ref_notes = readtable('../data/notes.csv');
 notes_names = table2array(ref_notes(:,1));
 notes_freqs = table2array(ref_notes(:,2));
 
