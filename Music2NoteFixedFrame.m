@@ -1,6 +1,6 @@
 clc
 clear all
-% close all
+close all
 
 notes = readtable('notes.csv');
 notes_names = table2array(notes(:,1));

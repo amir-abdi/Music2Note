@@ -3,7 +3,7 @@ clear all
 close all
 
 w = warning ('off','all');
-
+ref_notes = readtable('notes.csv');
 Fs = 44100;
 %%
 d = daq.getDevices;
@@ -27,7 +27,7 @@ plot(zeros(1,1))
 %% background listener
 % plotFFT = @(src, event) helper_continuous_fft(event.Data, src.Rate, hp);
 % plotFFT = @(src, event) get_notes(event.Data, src.Rate);
-plotFFT = @(src, event) plot_notes(event.Data, src.Rate, hp);
+plotFFT = @(src, event) plot_notes(event.Data, src.Rate, hp, ref_notes);
 hl = addlistener(s, 'DataAvailable', plotFFT);
 
 %% start

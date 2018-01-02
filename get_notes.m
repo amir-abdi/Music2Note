@@ -1,4 +1,4 @@
-function [notes, magnitudes, differences, mags, xfft] = get_notes(signal, Fs, varargin)
+function [notes, magnitudes, differences, mags, xfft] = get_notes(signal, Fs, ref_notes, varargin)
 
 if length(varargin) > 2
     error('Too many input arguments; expected at most 4 arguments');
@@ -11,7 +11,7 @@ optargs = {2 1000};
 optargs(1:length(varargin)) = varargin;
 [num, thres_accept] = optargs{:};
 
-ref_notes = readtable('notes.csv');
+% ref_notes = readtable('notes.csv');
 notes_names = table2array(ref_notes(:,1));
 notes_freqs = table2array(ref_notes(:,2));
 
