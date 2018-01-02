@@ -2,12 +2,14 @@ clc
 clear all
 close all
 
+%% set parameteres
+device_number = 2; %set the device number to use as recording input
+Fs = 44100; % sampling frequency
+%%
 w = warning ('off','all');
 ref_notes = readtable('notes.csv');
-Fs = 44100;
-%%
 d = daq.getDevices;
-dev = d(2);
+dev = d(device_number );
 s = daq.createSession('directsound');
 addAudioInputChannel(s, dev.ID, 1);
 s.IsContinuous = true;
